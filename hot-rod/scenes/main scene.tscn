@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ck8dauv7ybf24"]
+
+[ext_resource type="PackedScene" uid="uid://b0mws8a33laoy" path="res://scenes/control_room.tscn" id="1_6r1qt"]
+[ext_resource type="Script" uid="uid://c65whtg2dpifx" path="res://scripts/control_rod_material.gd" id="1_ce2h5"]
+
+[node name="Node3D" type="Node3D" unique_id=639772645]
+script = ExtResource("1_ce2h5")
+
+[node name="control room" parent="." unique_id=1055860141 instance=ExtResource("1_6r1qt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18402636, 0, 0.2894473)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=42623619]
+transform = Transform3D(1, 0, 0, 0, 0.90259284, 0.43049532, 0, -0.43049532, 0.90259284, -0.18402636, 2.4732122, 2.3550715)

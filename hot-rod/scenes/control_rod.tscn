@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b1y0x6jrorh0k"]
+
+[ext_resource type="PackedScene" uid="uid://bq2nu4hj03tif" path="res://assets/control rod.blend" id="1_l0vag"]
+[ext_resource type="Script" uid="uid://c65whtg2dpifx" path="res://scripts/control_rod_material.gd" id="2_1qamx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l0vag"]
+albedo_color = Color(0.14901961, 0.1764706, 0.19607843, 1)
+metallic = 0.55
+metallic_specular = 0.42
+
+[node name="control rod" unique_id=676515959 instance=ExtResource("1_l0vag")]
+script = ExtResource("2_1qamx")
+
+[node name="Cube" parent="." index="0" unique_id=1477066116]
+material_override = SubResource("StandardMaterial3D_l0vag")
