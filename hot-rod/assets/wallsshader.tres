@@ -1,0 +1,30 @@
+[gd_resource type="VisualShader" format=3 uid="uid://dfbce4s2oiafu"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qujig"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_7k40q"]
+texture = SubResource("NoiseTexture2D_qujig")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_vg18i"]
+texture = SubResource("NoiseTexture2D_qujig")
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_2resb"]
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_hviql"]
+parameter_name = "paleta"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_5xlhd"]
+
+[resource]
+nodes/vertex/0/position = Vector2(304, 320)
+nodes/vertex/2/node = SubResource("VisualShaderNodeTexture_7k40q")
+nodes/vertex/2/position = Vector2(-960, 224)
+nodes/vertex/3/node = SubResource("VisualShaderNodeTexture_vg18i")
+nodes/vertex/3/position = Vector2(-1040, 752)
+nodes/vertex/4/node = SubResource("VisualShaderNodeMix_2resb")
+nodes/vertex/4/position = Vector2(80, 304)
+nodes/vertex/5/node = SubResource("VisualShaderNodeTexture2DParameter_hviql")
+nodes/vertex/5/position = Vector2(-704, 304)
+nodes/vertex/6/node = SubResource("VisualShaderNodeTexture_5xlhd")
+nodes/vertex/6/position = Vector2(-256, 288)
+nodes/vertex/connections = PackedInt32Array(5, 0, 6, 2, 6, 0, 4, 0, 4, 0, 0, 0)

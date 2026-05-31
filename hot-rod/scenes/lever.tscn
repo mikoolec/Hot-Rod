@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bjovxqdndx1x3"]
+
+[ext_resource type="PackedScene" uid="uid://cj3bktqjscnga" path="res://assets/lever.blend" id="1_4kwec"]
+[ext_resource type="Script" uid="uid://07qc3a62ln2q" path="res://scripts/lever.gd" id="2_ncfea"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4kwec"]
+size = Vector3(0.38806152, 1.3378906, 1)
+
+[node name="lever" unique_id=150093606 instance=ExtResource("1_4kwec")]
+script = ExtResource("2_ncfea")
+
+[node name="Area3D" type="Area3D" parent="handle" parent_id_path=PackedInt32Array(573582211) index="0" unique_id=837574255]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="handle/Area3D" index="0" unique_id=430673735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0256958, 1.3037109, 0)
+shape = SubResource("BoxShape3D_4kwec")
+
+[connection signal="input_event" from="handle/Area3D" to="." method="_on_area_3d_input_event"]

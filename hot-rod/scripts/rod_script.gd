@@ -1,42 +1,189 @@
 extends Node3D
 
-# Ładujemy scenę rdzenia (upewnij się, że ścieżka jest poprawna!)
-const CONTROL_ROD_SCENE = preload("res://scenes/control_rod.tscn")
+# --- LOGIKA ROZGRYWKI ---
+var score : float = 0.0
+var game_timer : float = 60.0 # 1 minuta na rundę
+var soviet_quota : float = 9.0 # Wymagana energia na sekundę (do balansu)
+var current_energy_production : float = 0.0
+var is_game_over : bool = false
 
-# Odstęp między rdzeniami w metrach (dostosuj do wielkości swojego modelu)
-const SPACING = 0.994 
-const offsetX = -0.2
-const offsetZ = -2.4
+# Eksportujemy zmienną, aby móc łatwo podpiąć scenę pręta w edytorze
+@export var control_rod_scene : PackedScene
 
-# Słownik/Tablica, w której będziemy trzymać referencje do wszystkich 16 rdzeni
-var reactor_grid = {}
+# Stałe definiujące rozmiar siatki i odstępy między prętami w przestrzeni 3D
+const GRID_SIZE : int = 5
+const SPACING : float = 0.95  # Odległość między środkami prętów
+
+const movex : float = -0.3
+const movez : float = -2.2
+
+# Dwuwymiarowa tablica (słownik), która będzie przechowywać referencje do prętów
+var rods_grid : Dictionary = {}
+
+# --- NOWE REFERENCJE DO SYSTEMÓW STEROWANIA ---
+@onready var panel_3d = $Panel3D
+@onready var power_lever = $lever
+
+@onready var power_bar = $UI/PowerBar
+@onready var quota_marker = $UI/PowerBar/QuotaMarker
+
+@onready var quota_label = $UI/QuotaLabel # Nowa linijka
+
+@onready var score_label = $UI/ScoreLabel
+
+# Referencja do aktualnie kontrolowanego pręta reaktora
+var active_control_rod : Node3D = null
 
 func _ready() -> void:
+	if not control_rod_scene:
+		print("Błąd: Nie przypisano sceny 'control_rod_scene' w edytorze!")
+		return
+	
+	if power_bar:
+		power_bar.value = 12.5 
+		print("TEST: Wysłano 12.5 do paska. Aktualna wartość paska to: ", power_bar.value)
+		
 	generate_grid()
+	_connect_control_systems()
 
 	
 
 func generate_grid() -> void:
-	var columns = ["A", "B", "C", "D"]
+	var container = $RodsContainer
 	
-	for row in range(1, 5): # Wiersze 1, 2, 3, 4
-		for col_idx in range(4): # Kolumny 0, 1, 2, 3 (odpowiadające A, B, C, D)
-			var col_letter = columns[col_idx]
-			var coords = col_letter + str(row) # Np. "A1", "C2"
+	for x in range(GRID_SIZE):
+		rods_grid[x] = {} # Inicjalizacja kolumny w słowniku
+		
+		for z in range(GRID_SIZE):
+			# Instancjowanie nowej sceny pręta
+			var rod_instance = control_rod_scene.instantiate()
 			
-			# 1. Tworzymy instancję
-			var rod_instance = CONTROL_ROD_SCENE.instantiate()
+			# Obliczanie pozycji w przestrzeni 3D
+			var pos_x = (x - (GRID_SIZE - 1) / 2.0) * SPACING + movex
+			var pos_z = (z - (GRID_SIZE - 1) / 2.0) * SPACING + movez
+			rod_instance.position = Vector3(pos_x, -1, pos_z)
+			rod_instance.power_level = 0.29
+			
+			# Dodanie instancji do drzewa sceny (pod kontener)
+			container.add_child(rod_instance)
+			
+			# Zapisanie referencji do pręta w naszej strukturze danych
+			rods_grid[x][z] = rod_instance
+			
+			# Nadanie unikalnej nazwy dla podglądu w edytorze podczas uruchomienia
+			rod_instance.name = "Rod_" + str(x) + "_" + str(z)
 
-			# 2. Ustawiamy nazwę ZANIM trafi do drzewa sceny	
-			rod_instance.name = "Rod_" + coords
+# --- NOWA LOGIKA: ŁĄCZENIE SYSTEMÓW ---
 
-			# 3. Ustalamy pozycję
-			var x_pos = (col_idx - 1.5) * SPACING + offsetX
-			var z_pos = (row - 2.5) * SPACING + offsetZ
-			rod_instance.position = Vector3(x_pos, -1, z_pos)
+func _connect_control_systems() -> void:
+	# Pobieramy panel 2D siedzący wewnątrz SubViewportu w Panel3D i podpinamy sygnał wyboru
+	var panel_2d = panel_3d.find_child("PanelControl2d")
+	if panel_2d:
+		panel_2d.coordinates_selected.connect(_on_panel_rod_selected)
+	
+	# Podpinamy sygnał ruchu wajchy
+	if power_lever:
+		power_lever.power_changed.connect(_on_lever_power_changed)
 
-			# 4. Dopiero teraz dodajemy do sceny
-			add_child(rod_instance)
+func _process(delta: float) -> void:
+	if is_game_over:
+		return
+	
+	_update_quota_marker_position()
 
-			# 5. Zapis do słownika
-			reactor_grid[coords] = rod_instance
+	# 1. Aktualizacja wajchy (Twój dotychczasowy kod)
+	if active_control_rod and not power_lever.is_dragging:
+		power_lever.set_lever_angle_from_power(active_control_rod.power_level)
+		
+	# 2. Obliczanie całkowitej produkcji energii i sprawdzanie przegranej
+	_game_loop_logic(delta)
+
+func _game_loop_logic(delta: float) -> void:
+	current_energy_production = 0.0
+	var core_overloaded : bool = false
+
+
+	
+	# Przechodzimy po wszystkich prętach
+	for x in rods_grid:
+		for z in rods_grid[x]:
+			var rod = rods_grid[x][z]
+			
+			# Sumujemy energię (generowana na podstawie ich power_level)
+			current_energy_production += rod.power_level
+			
+			# Sprawdzamy, czy któryś pręt wybuchł (temperatura >= 1.0)
+			if rod.temperature >= 1.0:
+				core_overloaded = true
+
+	_update_ui_bars()
+				
+	# 3. Naliczanie punktów, jeśli spełniamy normę
+	if current_energy_production >= soviet_quota:
+		score += delta * 10.0 * ( current_energy_production - soviet_quota )  # Punkty za każdą sekundę powyżej normy
+		
+	# 4. Obsługa timera rundy
+	game_timer -= delta
+	if game_timer <= 0.0:
+		trigger_game_over(true) # Wygrana/Koniec czasu
+		
+	if core_overloaded:
+		trigger_game_over(false) # Przegrana - wybuch
+
+func trigger_game_over(success: bool) -> void:
+	is_game_over = true
+	if success:
+		print("Towarzyszu! Runda zakończona. Twój wynik to: ", int(score))
+	else:
+		print("KATASTROFA! Rdzeń eksplodował. Punkty utracone.")
+
+# Wywoływane, gdy gracz kliknie parę guzików na panelu (np. C i 2)
+func _on_panel_rod_selected(x: int, z: int) -> void:
+	if rods_grid.has(x) and rods_grid[x].has(z):
+		active_control_rod = rods_grid[x][z]
+		print("Główny skrypt: Aktywowano pręt: Rod_", x, "_", z)
+		
+		# Ustawiamy wajchę w pozycji, jaką ten konkretny pręt miał dotychczas
+		power_lever.set_lever_angle_from_power(active_control_rod.power_level)
+	else:
+		print("Błąd sygnału: Pozycja poza siatką reaktora: ", x, ", ", z)
+
+# Wywoływane, gdy gracz fizycznie przeciąga wajchę myszką
+func _on_lever_power_changed(new_power_value: float) -> void:
+	if active_control_rod:
+		active_control_rod.power_level = new_power_value
+
+# Twoja stara funkcja pomocnicza (zachowana, na wypadek gdybyś jej używał w innych skryptach)
+func set_rod_power(x: int, z: int, power: float) -> void:
+	if rods_grid.has(x) and rods_grid[x].has(z):
+		rods_grid[x][z].power_level = clamp(power, 0.0, 1.0)
+	else:
+		print("Błąd: Współrzędne ", x, ", ", z, " są poza siatką.")
+
+func _update_quota_marker_position() -> void:
+	if power_bar and quota_marker:
+		# Obliczamy stosunek normy do maksymalnej wartości paska (procent od 0.0 do 1.0)
+		var quota_ratio = soviet_quota / power_bar.max_value
+		
+		# Sprawdzamy fizyczną szerokość paska w pikselach
+		var bar_width = power_bar.size.x
+		
+		# Przesuwamy znacznik w osi X o odpowiednią liczbę pikseli
+		# Odejmujemy połowę szerokości znacznika, żeby kreska była idealnie wycentrowana
+		quota_marker.position.x = (bar_width * quota_ratio) - (quota_marker.size.x / 2.0)
+
+func _update_ui_bars() -> void:
+	if power_bar:
+		power_bar.value = current_energy_production
+		
+		var quota_percentage : int = 0
+		if soviet_quota > 0:
+			quota_percentage = int((current_energy_production / soviet_quota) * 100.0)
+		
+		# Bezpośrednia aktualizacja napisu
+		if quota_label:
+			quota_label.text = str(quota_percentage) + "% normy"
+			print("Wysłano do UI: ", quota_label.text)
+
+	if score_label:
+		score_label.text = "Wydajność toważysza: " + str(int(score))

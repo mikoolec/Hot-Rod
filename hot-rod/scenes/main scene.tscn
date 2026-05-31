@@ -1,13 +1,75 @@
 [gd_scene format=3 uid="uid://ck8dauv7ybf24"]
 
 [ext_resource type="PackedScene" uid="uid://b0mws8a33laoy" path="res://scenes/control_room.tscn" id="1_6r1qt"]
-[ext_resource type="Script" uid="uid://c65whtg2dpifx" path="res://scripts/control_rod_material.gd" id="1_ce2h5"]
+[ext_resource type="Script" uid="uid://cmvyiju6k6iub" path="res://scripts/rod_script.gd" id="2_ce2h5"]
+[ext_resource type="PackedScene" uid="uid://b1y0x6jrorh0k" path="res://scenes/control_rod.tscn" id="2_k0ot2"]
+[ext_resource type="PackedScene" uid="uid://c4b1b0r1632dg" path="res://scenes/panel_3d.tscn" id="4_ijdfw"]
+[ext_resource type="PackedScene" uid="uid://bjovxqdndx1x3" path="res://scenes/lever.tscn" id="5_jb6a7"]
+[ext_resource type="FontFile" uid="uid://vxs52rw13cnd" path="res://assets/Chernobyl.otf" id="6_esn7u"]
+[ext_resource type="PackedScene" uid="uid://btxc6gwfxlhld" path="res://scenes/UI.tscn" id="7_sneai"]
 
 [node name="Node3D" type="Node3D" unique_id=639772645]
-script = ExtResource("1_ce2h5")
+script = ExtResource("2_ce2h5")
+control_rod_scene = ExtResource("2_k0ot2")
 
-[node name="control room" parent="." unique_id=1055860141 instance=ExtResource("1_6r1qt")]
+[node name="control room" parent="." unique_id=262066688 instance=ExtResource("1_6r1qt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18402636, 0, 0.2894473)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=42623619]
 transform = Transform3D(1, 0, 0, 0, 0.90259284, 0.43049532, 0, -0.43049532, 0.90259284, -0.18402636, 2.4732122, 2.3550715)
+
+[node name="RodsContainer" type="Node3D" parent="." unique_id=1730212996]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=88702293]
+transform = Transform3D(1, 0, 0, 0, 0.28424963, 0.9587503, 0, -0.9587503, 0.28424963, 0, 3.5121908, -3.0474143)
+light_color = Color(0.99996096, 0.5283617, 0.46918237, 1)
+light_energy = 0.3
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=747678195]
+transform = Transform3D(1, 0, 0, 0, 0.65346026, 0.75696087, 0, -0.75696087, 0.65346026, 0, 2.2529397, 6.1000752)
+light_color = Color(0.99996096, 0.5283617, 0.46918237, 1)
+light_energy = 0.3
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="." unique_id=1031371497]
+transform = Transform3D(1, 0, 0, 0, 0.65346026, 0.75696087, 0, -0.75696087, 0.65346026, 0, 2.2529397, 6.1000752)
+light_color = Color(0.99996096, 0.5283617, 0.46918237, 1)
+light_energy = 0.3
+
+[node name="Panel3D" parent="." unique_id=1610173657 instance=ExtResource("4_ijdfw")]
+transform = Transform3D(1.8875682, 0, 0, 0, 1.3331271, 0.70794535, 0, -1.3362954, 0.70626706, -0.31300902, 0.2584363, 0.6665022)
+
+[node name="lever" parent="." unique_id=150093606 instance=ExtResource("5_jb6a7")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.5155238, 0, 0.5403198)
+
+[node name="Label3D" type="Label3D" parent="." unique_id=579785530]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.280977, 0.7966579, -4.965896)
+text = "A   B   C   D   E"
+font = ExtResource("6_esn7u")
+font_size = 135
+
+[node name="Label3D2" type="Label3D" parent="." unique_id=682885197]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.941437, 0.7966579, -1.9913931)
+text = "5   4   3   2   1"
+font = ExtResource("6_esn7u")
+font_size = 135
+
+[node name="Label3D3" type="Label3D" parent="." unique_id=1932121801]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 2.7406003, 0.7966579, -2.2544801)
+text = "1   2   3   4   5"
+font = ExtResource("6_esn7u")
+font_size = 135
+
+[node name="UI" parent="." unique_id=1295446241 instance=ExtResource("7_sneai")]
+
+[node name="QuotaLabel" type="Label" parent="UI" unique_id=886154204]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -78.0
+offset_top = 1.0
+offset_right = -9.0
+offset_bottom = 26.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("6_esn7u")
+text = "TESTING"
+vertical_alignment = 1

@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://dswx117osxj66"]
+
+[ext_resource type="Script" uid="uid://ga2n8r4bpjba" path="res://scripts/panel_control.gd" id="1_y7m8j"]
+[ext_resource type="FontFile" uid="uid://vxs52rw13cnd" path="res://assets/Chernobyl.otf" id="2_coxsr"]
+
+[node name="PanelControl2d" type="Control" unique_id=241712897]
+custom_minimum_size = Vector2(512, 256)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_y7m8j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1604527273]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="RowLetters" type="HBoxContainer" parent="VBoxContainer" unique_id=1749902973]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Button" type="Button" parent="VBoxContainer/RowLetters" unique_id=1050883637]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_coxsr")
+theme_override_font_sizes/font_size = 75
+toggle_mode = true
+text = "A"
+
+[node name="Button2" type="Button" parent="VBoxContainer/RowLetters" unique_id=169892863]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_coxsr")
+theme_override_font_sizes/font_size = 75
+toggle_mode = true
+text = "B"
+
+[node name="Button3" type="Button" parent="VBoxContainer/RowLetters" unique_id=775516973]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_coxsr")
+theme_override_font_sizes/font_size = 75
+toggle_mode = true
+text = "C"
+
+[node name="Button4" type="Button" parent="VBoxContainer/RowLetters" unique_id=1857861245]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_coxsr")
+theme_override_font_sizes/font_size = 75
+toggle_mode = true
+text = "D"
+
+[node name="Button5" type="Button" parent="VBoxContainer/RowLetters" unique_id=1109993363]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_coxsr")
+theme_override_font_sizes/font_size = 75
+toggle_mode = true
+text = "E"
+
+[node name="RowNumbers" type="HBoxContainer" parent="VBoxContainer" unique_id=559438340]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Button" type="Button" parent="VBoxContainer/RowNumbers" unique_id=585216127]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_coxsr")
+theme_override_font_sizes/font_size = 75
+toggle_mode = true
+text = "1"
+
+[node name="Button2" type="Button" parent="VBoxContainer/RowNumbers" unique_id=325717320]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_coxsr")
+theme_override_font_sizes/font_size = 75
+toggle_mode = true
+text = "2"
+
+[node name="Button3" type="Button" parent="VBoxContainer/RowNumbers" unique_id=1925358323]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_coxsr")
+theme_override_font_sizes/font_size = 75
+toggle_mode = true
+text = "3"
+
+[node name="Button4" type="Button" parent="VBoxContainer/RowNumbers" unique_id=658084566]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_coxsr")
+theme_override_font_sizes/font_size = 75
+toggle_mode = true
+text = "4"
+
+[node name="Button5" type="Button" parent="VBoxContainer/RowNumbers" unique_id=1785983896]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_coxsr")
+theme_override_font_sizes/font_size = 75
+toggle_mode = true
+text = "5"

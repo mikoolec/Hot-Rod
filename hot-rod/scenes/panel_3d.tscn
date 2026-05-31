@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://c4b1b0r1632dg"]
+
+[ext_resource type="Script" uid="uid://flbdyyeakfl2" path="res://scripts/panel_3d.gd" id="1_ptj0h"]
+[ext_resource type="PackedScene" uid="uid://dswx117osxj66" path="res://scenes/panel_control.tscn" id="1_shrhn"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_shrhn"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ptj0h"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_shrhn")
+
+[sub_resource type="QuadMesh" id="QuadMesh_shrhn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ptj0h"]
+size = Vector3(1, 0.50097656, 0.078125)
+
+[node name="Panel3D" type="Node3D" unique_id=1610173657]
+script = ExtResource("1_ptj0h")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1287824305]
+handle_input_locally = false
+size = Vector2i(512, 256)
+render_target_update_mode = 4
+
+[node name="PanelControl2d" parent="SubViewport" unique_id=241712897 instance=ExtResource("1_shrhn")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=968080522]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_ptj0h")
+mesh = SubResource("QuadMesh_shrhn")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1909904075]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=959741973]
+transform = Transform3D(0.98569524, 0, 0, 0, 1, 0, 0, 0, 0.7174049, 0, -0.0034179688, 0.026367188)
+shape = SubResource("BoxShape3D_ptj0h")
+
+[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]
