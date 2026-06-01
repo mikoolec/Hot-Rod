@@ -34,6 +34,9 @@ func setup_screen(is_victory: bool) -> void:
 		# WERSJA 2: Przegrana (Przegrzanie / Wybuch)
 		status_label.text = "EKSPLOZJA"
 		status_label.modulate = Color.RED
+		AudioManager.play_voice("explosion_start") # Odtwarzamy głos przy rozpoczęciu eksplozji
+
+		wait(0.5)
 
 		AudioManager.play_sfx("explosion") # Odtwarzamy dźwięk eksplozji przy przegranej
 		AudioManager.play_sfx("siren") # Odtwarzamy dźwięk syreny przy przegranej
@@ -102,3 +105,6 @@ func _load_leaderboard() -> void:
 		else:
 			leaderboard_label_2.text += str(pos) + ". " + p_name + " - " + str(entry.score) + "\n"		
 		pos += 1
+
+func wait(seconds: float) -> void:
+	await get_tree().create_timer(seconds).timeout

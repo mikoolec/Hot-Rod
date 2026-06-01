@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bjovxqdndx1x3" path="res://scenes/lever.tscn" id="5_jb6a7"]
 [ext_resource type="FontFile" uid="uid://vxs52rw13cnd" path="res://assets/Chernobyl.otf" id="6_esn7u"]
 [ext_resource type="PackedScene" uid="uid://btxc6gwfxlhld" path="res://scenes/UI.tscn" id="7_sneai"]
+[ext_resource type="Texture2D" uid="uid://doe133kc4c4sf" path="res://assets/radiodecal.jpg" id="8_8yh2u"]
 
 [node name="Node3D" type="Node3D" unique_id=639772645]
 script = ExtResource("2_ce2h5")
@@ -68,3 +69,11 @@ grow_horizontal = 0
 theme_override_fonts/font = ExtResource("6_esn7u")
 text = "TESTING"
 vertical_alignment = 1
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1353888570]
+transform = Transform3D(0.36998528, 0, 0, 0, 0.36998528, 0, 0, 0, 1, 2.2947736, 1.9995884, -5.0925336)
+texture = ExtResource("8_8yh2u")
+
+[node name="Sprite3D2" type="Sprite3D" parent="." unique_id=215972220]
+transform = Transform3D(0.36998528, 0, 0, 0, 0.36998528, 0, 0, 0, 1, -2.6004682, 2.0484247, -5.0925336)
+texture = ExtResource("8_8yh2u")
