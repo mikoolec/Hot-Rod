@@ -1,0 +1,38 @@
+[gd_resource type="VisualShader" format=3 uid="uid://bbie415gaao61"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_pp10k"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorDistance" id="VisualShaderNodeVectorDistance_kyyic"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeVec2Constant" id="VisualShaderNodeVec2Constant_ow3wm"]
+constant = Vector2(0.5, 0.5)
+
+[sub_resource type="VisualShaderNodeStep" id="VisualShaderNodeStep_q38fl"]
+default_input_values = [0, 0.425, 1, 0.0]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_pp10k"]
+parameter_name = "step_value"
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_pp10k"]
+parameter_name = "circle_color"
+
+[resource]
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(544, 144)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_pp10k")
+nodes/fragment/2/position = Vector2(-336, 176)
+nodes/fragment/3/node = SubResource("VisualShaderNodeVectorDistance_kyyic")
+nodes/fragment/3/position = Vector2(-32, 272)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVec2Constant_ow3wm")
+nodes/fragment/4/position = Vector2(-384, 352)
+nodes/fragment/5/node = SubResource("VisualShaderNodeStep_q38fl")
+nodes/fragment/5/position = Vector2(256, 176)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatParameter_pp10k")
+nodes/fragment/6/position = Vector2(-80, 32)
+nodes/fragment/7/node = SubResource("VisualShaderNodeColorParameter_pp10k")
+nodes/fragment/7/position = Vector2(160, 400)
+nodes/fragment/connections = PackedInt32Array(3, 0, 5, 1, 4, 0, 3, 1, 2, 0, 3, 0, 5, 0, 0, 1, 6, 0, 5, 0, 7, 0, 0, 0)

@@ -77,8 +77,8 @@ func _calculate_temperature(delta: float) -> void:
 
 	if temperature > 0.7 and not first_heat:
 		first_heat = true
-		AudioManager.play_voice("first_heat") # Odtwarzamy głos przy pierwszym nagrzaniu pręta powyżej 70%
-	
+		AudioManager.play_voice_line("first_heat") # Odtwarzamy głos przy pierwszym nagrzaniu pręta powyżej 70%
+
 func update_reactor_look() -> void:
 	if not material:
 		return

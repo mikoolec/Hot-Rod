@@ -8,6 +8,8 @@ extends Control
 @onready var name_input : LineEdit = $NameInput
 @onready var submit_button : Button = $SubmitButton
 
+@onready var circle_rect: ColorRect = $AnimateCircle
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
@@ -19,7 +21,7 @@ func _ready() -> void:
 		submit_button.pressed.connect(_on_submit_button_pressed)
 	
 	# Odczytujemy stan globalny (zaraz go utworzymy)
-	setup_screen(GlobalGameStats.was_victory)
+	setup_screen(GlobalGameStats.was_victory) # Półprzezroczysty biały na start
 
 	AudioManager.play_menu_music()
 
@@ -34,9 +36,8 @@ func setup_screen(is_victory: bool) -> void:
 		# WERSJA 2: Przegrana (Przegrzanie / Wybuch)
 		status_label.text = "EKSPLOZJA"
 		status_label.modulate = Color.RED
-		AudioManager.play_voice("explosion_start") # Odtwarzamy głos przy rozpoczęciu eksplozji
+		AudioManager.play_voice_line("explosion_start") # Odtwarzamy głos przy rozpoczęciu eksplozji
 
-		wait(0.5)
 
 		AudioManager.play_sfx("explosion") # Odtwarzamy dźwięk eksplozji przy przegranej
 		AudioManager.play_sfx("siren") # Odtwarzamy dźwięk syreny przy przegranej
@@ -44,6 +45,7 @@ func setup_screen(is_victory: bool) -> void:
 		GlobalGameStats.final_score = (GlobalGameStats.final_score - 1500)/2
 		if GlobalGameStats.final_score < 0:
 			GlobalGameStats.final_score = 0
+	animate_shader_step( is_victory  )
 	points.text = str(GlobalGameStats.final_score)
 		
 func _on_menu_button_pressed() -> void:
@@ -106,5 +108,20 @@ func _load_leaderboard() -> void:
 			leaderboard_label_2.text += str(pos) + ". " + p_name + " - " + str(entry.score) + "\n"		
 		pos += 1
 
-func wait(seconds: float) -> void:
-	await get_tree().create_timer(seconds).timeout
+
+func animate_shader_step(is_victory: bool) -> void:
+	var mat = circle_rect.material as ShaderMaterial
+	if not mat:
+		return
+	
+	# Ustawiamy stały kolor w shaderze natychmiast (bez tweenowania)
+	if not is_victory:
+		mat.set_shader_parameter("circle_color", Color.RED)
+	else:
+		mat.set_shader_parameter("circle_color", Color.WHITE)
+
+	# Tworzymy tween dla samego parametru step_value
+	var tween = create_tween()
+	
+	# Bezpieczny zapis w jednej linii zapobiegający błędowi 'null value'
+	tween.tween_property(mat, "shader_parameter/step_value", 1.0, 2.0).from(0.0).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)

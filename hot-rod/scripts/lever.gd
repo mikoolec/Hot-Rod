@@ -12,6 +12,7 @@ const MAX_ANGLE_DEG : float = 35.0   # Kąt dla power_level = 1.0
 
 # Flaga sprawdzająca, czy gracz aktualnie trzyma wajchę
 var is_dragging : bool = false
+var first_touch : bool = true
 var current_power : float = 0.0
 
 # --- NOWE: Przechowuje kąt, do którego wajcha ma dążyć ---
@@ -52,6 +53,10 @@ func _on_area_3d_input_event(_camera: Node, event: InputEvent, _event_position: 
 		if event.pressed:
 			if not is_dragging:
 				AudioManager.play_sfx("lever") # Odtwarzamy dźwięk kliknięcia przy chwyceniu wajchy
+			if first_touch:
+				AudioManager.play_voice_line("game_start")
+				first_touch = false
+			
 			is_dragging = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
 

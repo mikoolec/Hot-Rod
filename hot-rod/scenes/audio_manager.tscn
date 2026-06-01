@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://cv70s35pcd0dg" path="res://assets/lever.wav" id="3_m6ggh"]
 [ext_resource type="AudioStream" uid="uid://ddemxjsxn38wy" path="res://assets/menu.ogg" id="4_aoitu"]
 [ext_resource type="AudioStream" uid="uid://ck7f8dvc1y46c" path="res://assets/siren.mp3" id="5_02gw7"]
+[ext_resource type="AudioStream" uid="uid://cxejyatyubd8h" path="res://assets/placeholder_sfx.mp3" id="6_02gw7"]
 
 [node name="AudioManager" type="Node" unique_id=1087818277]
 script = ExtResource("1_8qd8g")
@@ -14,6 +15,9 @@ click_sound = ExtResource("2_3asnw")
 explosion_sound = ExtResource("3_kq7b2")
 lever_sound = ExtResource("3_m6ggh")
 siren_sound = ExtResource("5_02gw7")
+game_start = ExtResource("6_02gw7")
+first_heat = ExtResource("6_02gw7")
+explosion_start = ExtResource("6_02gw7")
 
 [node name="MenuMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1120129859]
 stream = ExtResource("4_aoitu")

@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://b0uka303qlkcr" path="res://scripts/game_over.gd" id="1_wqhvx"]
 [ext_resource type="FontFile" uid="uid://vxs52rw13cnd" path="res://assets/Chernobyl.otf" id="1_xeevv"]
+[ext_resource type="Shader" uid="uid://bbie415gaao61" path="res://scripts/animate_circle.tres" id="3_tbwuq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_racf3"]
+shader = ExtResource("3_tbwuq")
+shader_parameter/circle_color = Color(0, 0, 0, 1)
+shader_parameter/step_value = 0.0
 
 [node name="game_over" type="Control" unique_id=947589056]
 layout_mode = 3
@@ -115,3 +121,14 @@ offset_right = 261.0
 offset_bottom = 346.0
 theme_override_fonts/font = ExtResource("1_xeevv")
 text = "wroc"
+
+[node name="AnimateCircle" type="ColorRect" parent="." unique_id=1088657323]
+material = SubResource("ShaderMaterial_racf3")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(240, 180)
+mouse_filter = 2
