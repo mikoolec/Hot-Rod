@@ -2,7 +2,7 @@ extends Node3D
 
 # --- LOGIKA ROZGRYWKI ---
 var score : float = 0.0
-var game_timer : float = 60.0 # 1 minuta na rundę
+var game_timer : float = 90.0 # 1 minuta na rundę
 var soviet_quota : float = 9.0 # Wymagana energia na sekundę (do balansu)
 var current_energy_production : float = 0.0
 var is_game_over : bool = false
@@ -30,6 +30,7 @@ var rods_grid : Dictionary = {}
 @onready var quota_label = $UI/QuotaLabel # Nowa linijka
 
 @onready var score_label = $UI/ScoreLabel
+@onready var timer_label = $UI/TimerLabel
 
 # Referencja do aktualnie kontrolowanego pręta reaktora
 var active_control_rod : Node3D = null
@@ -42,7 +43,9 @@ func _ready() -> void:
 	if power_bar:
 		power_bar.value = 12.5 
 		print("TEST: Wysłano 12.5 do paska. Aktualna wartość paska to: ", power_bar.value)
-		
+	
+	
+
 	generate_grid()
 	_connect_control_systems()
 
@@ -72,6 +75,8 @@ func generate_grid() -> void:
 			
 			# Nadanie unikalnej nazwy dla podglądu w edytorze podczas uruchomienia
 			rod_instance.name = "Rod_" + str(x) + "_" + str(z)
+
+	active_control_rod = rods_grid[0][0]
 
 # --- NOWA LOGIKA: ŁĄCZENIE SYSTEMÓW ---
 
@@ -130,12 +135,15 @@ func _game_loop_logic(delta: float) -> void:
 	if core_overloaded:
 		trigger_game_over(false) # Przegrana - wybuch
 
-func trigger_game_over(success: bool) -> void:
+func trigger_game_over(is_victory: bool) -> void:
 	is_game_over = true
-	if success:
-		print("Towarzyszu! Runda zakończona. Twój wynik to: ", int(score))
-	else:
-		print("KATASTROFA! Rdzeń eksplodował. Punkty utracone.")
+	
+	# Zapisujemy informację o typie zakończenia gry do pamięci globalnej
+	GlobalGameStats.was_victory = is_victory
+	GlobalGameStats.final_score = int(score)
+	
+	# Ładujemy ekran końcowy
+	get_tree().change_scene_to_file("res://scenes/game_over.tscn") # Wpisz swoją ścieżkę do nowej sceny
 
 # Wywoływane, gdy gracz kliknie parę guzików na panelu (np. C i 2)
 func _on_panel_rod_selected(x: int, z: int) -> void:
@@ -183,7 +191,18 @@ func _update_ui_bars() -> void:
 		# Bezpośrednia aktualizacja napisu
 		if quota_label:
 			quota_label.text = str(quota_percentage) + "% normy"
-			print("Wysłano do UI: ", quota_label.text)
+			#print("Wysłano do UI: ", quota_label.text)
 
 	if score_label:
-		score_label.text = "Wydajność toważysza: " + str(int(score))
+		score_label.text = "Ocena pracownika: " + str(int(score))
+
+	if timer_label:
+		# Zabezpieczamy się, żeby timer nie pokazywał wartości ujemnych
+		var time_left = max(0.0, game_timer)
+		
+		# Wyliczamy pełne minuty i sekundy
+		var minutes : int = int(time_left) / 60
+		var seconds : int = int(time_left) % 60
+		
+		# Formatujemy tekst, aby zawsze miał dwie cyfry (np. "05" zamiast "5")
+		timer_label.text = "Do fajrantu: %02d:%02d" % [minutes, seconds]

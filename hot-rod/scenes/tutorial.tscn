@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://bku48ee1c6ruh"]
+
+[ext_resource type="Script" uid="uid://c6ubiqobrn1v1" path="res://scripts/tutorial.gd" id="1_bqqt6"]
+[ext_resource type="FontFile" uid="uid://vxs52rw13cnd" path="res://assets/Chernobyl.otf" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://bgjee635w65fw" path="res://assets/The-rods-to-control-the-nuclear-reaction.webp" id="2_bqqt6"]
+
+[node name="MainMenu" type="Control" unique_id=1966120195]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bqqt6")
+game_scene_path = "uid://dvo2aep00qhmk"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1389248627]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.17455682, 0.10478952, 0.10284004, 1)
+
+[node name="TheRodsToControlTheNuclearReaction" type="Sprite2D" parent="ColorRect" unique_id=1161222433]
+position = Vector2(212, 181)
+scale = Vector2(0.36543718, 0.36543718)
+texture = ExtResource("2_bqqt6")
+
+[node name="Label2" type="Label" parent="ColorRect" unique_id=1547991210]
+z_index = 1
+layout_mode = 0
+offset_left = 20.0
+offset_top = 4.0
+offset_right = 462.0
+offset_bottom = 301.0
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("1_l6cm7")
+theme_override_font_sizes/font_size = 15
+text = "tlumaczenie:
+
+- jestes pracownikiem elektrowni jadrowej w zsrr 1985.
+
+- kontrolujesz moc wydzielana przez poszczegolne rdzenie. 
+
+- wybierasz ktorym rdzeniem manipulujesz, a nastepnie zmieniasz jego moc.
+
+- kiedy rdzen wydziela wiecej mocy, przegrzewa sie, a kiedy mniej to schladza.
+
+- twoim zadaniem jest osiagnac norme mocy ustalona przez partie, bez katastrofy."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Back" type="Button" parent="." unique_id=849572306]
+layout_mode = 0
+offset_left = 312.0
+offset_top = 302.0
+offset_right = 468.0
+offset_bottom = 353.0
+theme_override_fonts/font = ExtResource("1_l6cm7")
+theme_override_font_sizes/font_size = 35
+text = "WROC"

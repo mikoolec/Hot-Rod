@@ -21,19 +21,14 @@ transform = Transform3D(1, 0, 0, 0, 0.90259284, 0.43049532, 0, -0.43049532, 0.90
 [node name="RodsContainer" type="Node3D" parent="." unique_id=1730212996]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=88702293]
-transform = Transform3D(1, 0, 0, 0, 0.28424963, 0.9587503, 0, -0.9587503, 0.28424963, 0, 3.5121908, -3.0474143)
+transform = Transform3D(1, 0, 0, 0, 0.96348107, 0.26777655, 0, -0.26777655, 0.96348107, 0, 1.7301865, -0.26449418)
 light_color = Color(0.99996096, 0.5283617, 0.46918237, 1)
 light_energy = 0.3
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=747678195]
 transform = Transform3D(1, 0, 0, 0, 0.65346026, 0.75696087, 0, -0.75696087, 0.65346026, 0, 2.2529397, 6.1000752)
 light_color = Color(0.99996096, 0.5283617, 0.46918237, 1)
-light_energy = 0.3
-
-[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="." unique_id=1031371497]
-transform = Transform3D(1, 0, 0, 0, 0.65346026, 0.75696087, 0, -0.75696087, 0.65346026, 0, 2.2529397, 6.1000752)
-light_color = Color(0.99996096, 0.5283617, 0.46918237, 1)
-light_energy = 0.3
+light_energy = 0.2
 
 [node name="Panel3D" parent="." unique_id=1610173657 instance=ExtResource("4_ijdfw")]
 transform = Transform3D(1.8875682, 0, 0, 0, 1.3331271, 0.70794535, 0, -1.3362954, 0.70626706, -0.31300902, 0.2584363, 0.6665022)

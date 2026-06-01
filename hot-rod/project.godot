@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Hot Rod"
-run/main_scene="uid://ck8dauv7ybf24"
+run/main_scene="uid://dvo2aep00qhmk"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GlobalGameStats="*uid://x8mtg8g1dio"
+Talo="*uid://bpmdn8oc34pg7"
 
 [display]
 
@@ -22,6 +27,10 @@ window/size/viewport_height=360
 window/size/window_width_override=1440
 window/size/window_height_override=1080
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/talo/plugin.cfg")
 
 [physics]
 

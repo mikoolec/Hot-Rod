@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://dvo2aep00qhmk"]
+
+[ext_resource type="Script" uid="uid://btouab7esaqf4" path="res://scripts/main_menu.gd" id="1_mhnvy"]
+[ext_resource type="FontFile" uid="uid://vxs52rw13cnd" path="res://assets/Chernobyl.otf" id="2_4ytvr"]
+[ext_resource type="Texture2D" uid="uid://bgjee635w65fw" path="res://assets/The-rods-to-control-the-nuclear-reaction.webp" id="3_g3eks"]
+[ext_resource type="Texture2D" uid="uid://crhua0mfjy41t" path="res://assets/boom.png" id="4_v86rl"]
+
+[node name="MainMenu" type="Control" unique_id=1966120195]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mhnvy")
+game_scene_path = "uid://ck8dauv7ybf24"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1389248627]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.17455682, 0.10478952, 0.10284004, 1)
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=2022309709]
+z_index = 1
+layout_mode = 0
+offset_left = 107.0
+offset_top = 62.000015
+offset_right = 304.0
+offset_bottom = 188.00002
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("2_4ytvr")
+theme_override_font_sizes/font_size = 120
+text = "Hot"
+
+[node name="Label2" type="Label" parent="ColorRect" unique_id=1547991210]
+z_index = 1
+layout_mode = 0
+offset_left = 223.0
+offset_top = 156.00002
+offset_right = 437.0
+offset_bottom = 282.0
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("2_4ytvr")
+theme_override_font_sizes/font_size = 120
+text = "Rod"
+
+[node name="TheRodsToControlTheNuclearReaction" type="Sprite2D" parent="ColorRect" unique_id=1161222433]
+position = Vector2(212, 181)
+scale = Vector2(0.36543718, 0.36543718)
+texture = ExtResource("3_g3eks")
+
+[node name="Boom" type="Sprite2D" parent="ColorRect" unique_id=802517357]
+z_index = 1
+position = Vector2(373.00003, 94.00001)
+scale = Vector2(0.3944445, 0.3944445)
+texture = ExtResource("4_v86rl")
+
+[node name="Play" type="Button" parent="." unique_id=849572306]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 193.0
+offset_right = 186.0
+offset_bottom = 244.0
+theme_override_fonts/font = ExtResource("2_4ytvr")
+theme_override_font_sizes/font_size = 35
+text = "GRAJ"
+
+[node name="Tutorial" type="Button" parent="." unique_id=808048811]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 253.0
+offset_right = 186.0
+offset_bottom = 304.0
+theme_override_fonts/font = ExtResource("2_4ytvr")
+theme_override_font_sizes/font_size = 35
+text = "ZASADY"

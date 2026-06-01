@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://cs76lkfujihnt"]
+
+[ext_resource type="Script" uid="uid://b0uka303qlkcr" path="res://scripts/game_over.gd" id="1_wqhvx"]
+[ext_resource type="FontFile" uid="uid://vxs52rw13cnd" path="res://assets/Chernobyl.otf" id="1_xeevv"]
+
+[node name="game_over" type="Control" unique_id=947589056]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wqhvx")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=657997544]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.27798292, 0.18660194, 0.16568115, 1)
+
+[node name="maintext" type="Label" parent="." unique_id=2112719646]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 2.0
+offset_right = 361.0
+offset_bottom = 87.0
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("1_xeevv")
+theme_override_font_sizes/font_size = 60
+text = "sukces"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="." unique_id=752184991]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 91.0
+offset_right = 305.0
+offset_bottom = 114.0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_xeevv")
+text = "zdobyte uznanie partii:"
+
+[node name="Label4" type="Label" parent="." unique_id=1274338677]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 120.0
+offset_right = 150.0
+offset_bottom = 143.0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_xeevv")
+text = "wpisz imie:"
+
+[node name="Label3" type="Label" parent="." unique_id=499623135]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 156.0
+offset_right = 221.0
+offset_bottom = 179.0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_xeevv")
+text = "top 10 wynikow:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="pointscollected" type="Label" parent="." unique_id=1561268230]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 86.0
+offset_right = 347.0
+offset_bottom = 113.0
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_xeevv")
+theme_override_font_sizes/font_size = 25
+text = "100"
+
+[node name="NameInput" type="LineEdit" parent="." unique_id=1622842370]
+layout_mode = 0
+offset_left = 156.0
+offset_top = 114.0
+offset_right = 300.0
+offset_bottom = 145.0
+
+[node name="SubmitButton" type="Button" parent="." unique_id=522998363]
+layout_mode = 0
+offset_left = 306.0
+offset_top = 117.0
+offset_right = 369.0
+offset_bottom = 143.0
+theme_override_fonts/font = ExtResource("1_xeevv")
+text = "wyslij"
+
+[node name="LeaderboardLabel" type="Label" parent="." unique_id=1301384100]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 150.0
+offset_right = 309.0
+offset_bottom = 281.0
+
+[node name="MenuButton" type="Button" parent="." unique_id=1890677890]
+layout_mode = 0
+offset_left = 410.0
+offset_top = 320.0
+offset_right = 463.0
+offset_bottom = 346.0
+theme_override_fonts/font = ExtResource("1_xeevv")
+text = "wroc"
