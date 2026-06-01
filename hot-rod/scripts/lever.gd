@@ -50,6 +50,8 @@ func set_lever_angle_from_power(power: float) -> void:
 func _on_area_3d_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
+			if not is_dragging:
+				AudioManager.play_sfx("lever") # Odtwarzamy dźwięk kliknięcia przy chwyceniu wajchy
 			is_dragging = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
 
@@ -57,6 +59,7 @@ func _on_area_3d_input_event(_camera: Node, event: InputEvent, _event_position: 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if not event.pressed and is_dragging:
+			AudioManager.play_sfx("lever") # Odtwarzamy dźwięk kliknięcia przy puszczeniu wajchy
 			is_dragging = false
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			

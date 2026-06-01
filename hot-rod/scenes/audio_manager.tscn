@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://d4k1y0q76xv0x"]
+
+[ext_resource type="Script" uid="uid://csoy6jweus5dd" path="res://scripts/audio_manager.gd" id="1_8qd8g"]
+[ext_resource type="AudioStream" uid="uid://brf44dkfeg33i" path="res://assets/click.wav" id="2_3asnw"]
+[ext_resource type="AudioStream" uid="uid://cf73tg0uy7ye7" path="res://assets/GameplaySong.wav" id="2_liach"]
+[ext_resource type="AudioStream" uid="uid://ddc3yyt0gy7jy" path="res://assets/explosion.mp3" id="3_kq7b2"]
+[ext_resource type="AudioStream" uid="uid://cv70s35pcd0dg" path="res://assets/lever.wav" id="3_m6ggh"]
+[ext_resource type="AudioStream" uid="uid://ddemxjsxn38wy" path="res://assets/menu.ogg" id="4_aoitu"]
+[ext_resource type="AudioStream" uid="uid://ck7f8dvc1y46c" path="res://assets/siren.mp3" id="5_02gw7"]
+
+[node name="AudioManager" type="Node" unique_id=1087818277]
+script = ExtResource("1_8qd8g")
+click_sound = ExtResource("2_3asnw")
+explosion_sound = ExtResource("3_kq7b2")
+lever_sound = ExtResource("3_m6ggh")
+siren_sound = ExtResource("5_02gw7")
+
+[node name="MenuMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1120129859]
+stream = ExtResource("4_aoitu")
+bus = &"Music"
+
+[node name="GameMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=93073466]
+stream = ExtResource("2_liach")
+bus = &"Music"
+
+[node name="SoundEffectsPlayer" type="AudioStreamPlayer" parent="." unique_id=916874883]
+max_polyphony = 12
+bus = &"SFX"
+
+[node name="VoicePlayer" type="AudioStreamPlayer" parent="." unique_id=1217974684]
+max_polyphony = 12
+bus = &"SFX"

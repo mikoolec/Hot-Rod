@@ -44,7 +44,7 @@ func _ready() -> void:
 		power_bar.value = 12.5 
 		print("TEST: Wysłano 12.5 do paska. Aktualna wartość paska to: ", power_bar.value)
 	
-	
+	AudioManager.play_game_music()
 
 	generate_grid()
 	_connect_control_systems()

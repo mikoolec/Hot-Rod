@@ -4,6 +4,7 @@ extends Control
 @onready var points : Label = $pointscollected
 
 @onready var leaderboard_label : Label = $LeaderboardLabel
+@onready var leaderboard_label_2 : Label = $LeaderboardLabel2
 @onready var name_input : LineEdit = $NameInput
 @onready var submit_button : Button = $SubmitButton
 
@@ -20,6 +21,8 @@ func _ready() -> void:
 	# Odczytujemy stan globalny (zaraz go utworzymy)
 	setup_screen(GlobalGameStats.was_victory)
 
+	AudioManager.play_menu_music()
+
 	_load_leaderboard()
 
 func setup_screen(is_victory: bool) -> void:
@@ -31,6 +34,10 @@ func setup_screen(is_victory: bool) -> void:
 		# WERSJA 2: Przegrana (Przegrzanie / Wybuch)
 		status_label.text = "EKSPLOZJA"
 		status_label.modulate = Color.RED
+
+		AudioManager.play_sfx("explosion") # Odtwarzamy dźwięk eksplozji przy przegranej
+		AudioManager.play_sfx("siren") # Odtwarzamy dźwięk syreny przy przegranej
+
 		GlobalGameStats.final_score = (GlobalGameStats.final_score - 1500)/2
 		if GlobalGameStats.final_score < 0:
 			GlobalGameStats.final_score = 0
@@ -80,11 +87,18 @@ func _load_leaderboard() -> void:
 		return
 		
 	leaderboard_label.text = ""
+	leaderboard_label_2.text = ""
 	
 	var pos = 1
 	for entry in page.entries:
 		# Wyciągamy zapisane w metadanych imię
 		var p_name = entry.get_prop("display_name", "Nieznany Robotnik")
-	
-		leaderboard_label.text += str(pos) + ". " + p_name + " - " + str(entry.score) + "\n"
+
+		if pos>10:
+			break
+
+		if pos <= 5:
+			leaderboard_label.text += str(pos) + ". " + p_name + " - " + str(entry.score) + "\n"
+		else:
+			leaderboard_label_2.text += str(pos) + ". " + p_name + " - " + str(entry.score) + "\n"		
 		pos += 1

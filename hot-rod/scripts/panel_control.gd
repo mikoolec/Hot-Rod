@@ -50,7 +50,9 @@ func _ready() -> void:
 func _on_letter_pressed(index: int) -> void:
 	selected_letter_index = index
 	coordinates_selected.emit(selected_letter_index, selected_number_index)
+	AudioManager.play_sfx("click") # Odtwarzamy dźwięk kliknięcia przy zmianie litery
 
 func _on_number_pressed(index: int) -> void:
 	selected_number_index = index
 	coordinates_selected.emit(selected_letter_index, selected_number_index)
+	AudioManager.play_sfx("click")

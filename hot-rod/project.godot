@@ -15,10 +15,15 @@ run/main_scene="uid://dvo2aep00qhmk"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://3nmqjtpyyery"
+
 [autoload]
 
 GlobalGameStats="*uid://x8mtg8g1dio"
 Talo="*uid://bpmdn8oc34pg7"
+AudioManager="*uid://d4k1y0q76xv0x"
 
 [display]
 

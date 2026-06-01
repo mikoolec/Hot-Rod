@@ -14,6 +14,8 @@ func _ready() -> void:
 		$Play.pressed.connect(_on_play_button_pressed)
 	if has_node("Tutorial"):
 		$Tutorial.pressed.connect(_on_tutorial_button_pressed)
+	
+	AudioManager.play_menu_music()
 
 func _on_play_button_pressed() -> void:
 	if game_scene_path != "":
