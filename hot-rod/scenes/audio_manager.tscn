@@ -7,7 +7,16 @@
 [ext_resource type="AudioStream" uid="uid://cv70s35pcd0dg" path="res://assets/lever.wav" id="3_m6ggh"]
 [ext_resource type="AudioStream" uid="uid://ddemxjsxn38wy" path="res://assets/menu.ogg" id="4_aoitu"]
 [ext_resource type="AudioStream" uid="uid://ck7f8dvc1y46c" path="res://assets/siren.mp3" id="5_02gw7"]
-[ext_resource type="AudioStream" uid="uid://cxejyatyubd8h" path="res://assets/placeholder_sfx.mp3" id="6_02gw7"]
+[ext_resource type="AudioStream" uid="uid://df5yrx81kijr0" path="res://assets/voice-lines/beginplay-voice-fixed.mp3" id="6_oucy0"]
+[ext_resource type="AudioStream" uid="uid://cxrt4xphps6lc" path="res://assets/voice-lines/overheat-voice-fixed.mp3" id="7_cuol6"]
+[ext_resource type="AudioStream" uid="uid://ks6pfi3g5b27" path="res://assets/voice-lines/explosion.mp3" id="8_m1k83"]
+[ext_resource type="AudioStream" uid="uid://bssp42fgg6ft6" path="res://assets/voice-lines/bad-score-voice.mp3" id="9_oummu"]
+[ext_resource type="AudioStream" uid="uid://4287voxd3pok" path="res://assets/voice-lines/good-score-explosion-voice.mp3" id="10_hssp1"]
+[ext_resource type="AudioStream" uid="uid://p0q0s02hf4ai" path="res://assets/voice-lines/bad-score-no-explosion-voice.mp3" id="11_8b11i"]
+[ext_resource type="AudioStream" uid="uid://bskf85yfmi4ss" path="res://assets/voice-lines/ok-score-voice.mp3" id="12_u6qdm"]
+[ext_resource type="AudioStream" uid="uid://kjmemb2r3xvm" path="res://assets/voice-lines/good-score-voice.mp3" id="13_f6jxr"]
+[ext_resource type="AudioStream" uid="uid://dn7heg84u1ncu" path="res://assets/voice-lines/great-score-voice.mp3" id="14_ovaav"]
+[ext_resource type="AudioStream" uid="uid://cwpxandfu25sw" path="res://assets/voice-lines/finish-voice-emo-phone.mp3" id="15_cuol6"]
 
 [node name="AudioManager" type="Node" unique_id=1087818277]
 script = ExtResource("1_8qd8g")
@@ -15,9 +24,16 @@ click_sound = ExtResource("2_3asnw")
 explosion_sound = ExtResource("3_kq7b2")
 lever_sound = ExtResource("3_m6ggh")
 siren_sound = ExtResource("5_02gw7")
-game_start = ExtResource("6_02gw7")
-first_heat = ExtResource("6_02gw7")
-explosion_start = ExtResource("6_02gw7")
+game_start = ExtResource("6_oucy0")
+first_heat = ExtResource("7_cuol6")
+explosion_start = ExtResource("8_m1k83")
+explosion_over_bad = ExtResource("9_oummu")
+explosion_over_good = ExtResource("10_hssp1")
+time_over_1 = ExtResource("11_8b11i")
+time_over_2 = ExtResource("12_u6qdm")
+time_over_3 = ExtResource("13_f6jxr")
+time_over_4 = ExtResource("14_ovaav")
+fajrant = ExtResource("15_cuol6")
 
 [node name="MenuMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1120129859]
 stream = ExtResource("4_aoitu")

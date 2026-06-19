@@ -22,7 +22,14 @@ func _ready() -> void:
 	
 	# Odczytujemy stan globalny (zaraz go utworzymy)
 	setup_screen(GlobalGameStats.was_victory) # Półprzezroczysty biały na start
-
+	
+	get_tree().create_timer(1.5).timeout.connect(func():
+		if !GlobalGameStats.was_victory:
+			AudioManager.play_voice_line("explosion_start")
+		else:
+			AudioManager.play_voice_line("fajrant")
+		)
+	
 	AudioManager.play_menu_music()
 
 	_load_leaderboard()
@@ -36,13 +43,13 @@ func setup_screen(is_victory: bool) -> void:
 		# WERSJA 2: Przegrana (Przegrzanie / Wybuch)
 		status_label.text = "EKSPLOZJA"
 		status_label.modulate = Color.RED
-		AudioManager.play_voice_line("explosion_start") # Odtwarzamy głos przy rozpoczęciu eksplozji
+		 # Odtwarzamy głos przy rozpoczęciu eksplozji
 
 
 		AudioManager.play_sfx("explosion") # Odtwarzamy dźwięk eksplozji przy przegranej
 		AudioManager.play_sfx("siren") # Odtwarzamy dźwięk syreny przy przegranej
 
-		GlobalGameStats.final_score = (GlobalGameStats.final_score - 1500)/2
+		GlobalGameStats.final_score = GlobalGameStats.final_score - 1000
 		if GlobalGameStats.final_score < 0:
 			GlobalGameStats.final_score = 0
 	animate_shader_step( is_victory  )
@@ -62,7 +69,27 @@ func _on_submit_button_pressed() -> void:
 	submit_button.disabled = true
 	name_input.editable = false
 	submit_button.text = "Wysyłanie..."
-
+	
+	if !GlobalGameStats.was_victory:
+		if GlobalGameStats.final_score > 600:
+			AudioManager.play_voice_line("explosion_over_good")
+		else:
+			AudioManager.play_voice_line("explosion_over_bad")
+	else:
+		if GlobalGameStats.final_score > 1800:
+			AudioManager.play_voice_line("time_over_4")
+			
+		elif GlobalGameStats.final_score > 1200:
+			AudioManager.play_voice_line("time_over_3")
+			
+		elif GlobalGameStats.final_score > 600:
+			AudioManager.play_voice_line("time_over_2")
+			
+		else:
+			AudioManager.play_voice_line("time_over_1")
+			
+		
+	
 	# Jeśli Talo jeszcze nie zidentyfikowało gracza, robimy to ręcznie:
 	if Talo.identity_check() != OK:
 		var unique_id = Talo.players.generate_identifier()

@@ -16,6 +16,7 @@ extends Node
 @export var time_over_2 : AudioStream
 @export var time_over_3 : AudioStream
 @export var time_over_4 : AudioStream
+@export var fajrant : AudioStream
 
 @onready var menu_music_player: AudioStreamPlayer = $MenuMusicPlayer
 @onready var game_music_player: AudioStreamPlayer = $GameMusicPlayer
@@ -86,4 +87,6 @@ func play_voice_line(sound_type: String):
 			stream_to_play = time_over_3
 		"time_over_4":
 			stream_to_play = time_over_4
+		"fajrant":
+			stream_to_play = fajrant
 	_play_dynamic_sound(stream_to_play, "VOICES")

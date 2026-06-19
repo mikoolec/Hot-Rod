@@ -13,7 +13,7 @@ var r2 = 255.0
 var g2 = 125.0
 var b2 = 108.0
 
-var first_heat : bool = false
+
 
 const MAX_HEIGHT = 1.0
 var mesh_node : MeshInstance3D
@@ -75,8 +75,8 @@ func _calculate_temperature(delta: float) -> void:
 	temperature += temperature_change * speed_multiplier * delta
 	temperature = clamp(temperature, 0.0, 1.0)
 
-	if temperature > 0.7 and not first_heat:
-		first_heat = true
+	if temperature > 0.7 and not GlobalGameStats.first_heat:
+		GlobalGameStats.first_heat = true
 		AudioManager.play_voice_line("first_heat") # Odtwarzamy głos przy pierwszym nagrzaniu pręta powyżej 70%
 
 func update_reactor_look() -> void:
